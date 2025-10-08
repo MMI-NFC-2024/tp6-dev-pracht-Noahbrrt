@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+
+const speciesList = [...new Set(penguins.map(p => p.species))];
+---
+
+<Layout>
+  <h1 class="text-2xl mb-6 text-center">Graphiques par espèce de manchot</h1>
+
+  <div class="slider flex overflow-x-auto gap-6 p-4 snap-x">
+    {speciesList.map(species => (
+      <div class="slide min-w-[400px] snap-center bg-white rounded-lg shadow p-4">
+        <h2 class="text-xl font-semibold mb-3 text-center">{species}</h2>
+
+        <PlotFigure
+          options={{
+            marks: [
+              Plot.dot(penguins, {
+                x: "culmen_length_mm",
+                y: "culmen_depth_mm",
+                stroke: "species",
+                filter: d => d.species === species
+              })
+            ]
+          }}
+        />
+      </div>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .slider::-webkit-scrollbar {
+    display: none;
+  }
+</style>

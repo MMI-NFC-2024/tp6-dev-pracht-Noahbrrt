@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import penguins from "../../assets/penguins.json";
+import PlotFigure from "../../components/PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+
+export const prerender = false;
+
+const { species } = Astro.params;
+const filteredPenguins = penguins.filter(p => p.species === species);
+---
+
+<Layout>
+  <h1>Espèce : {species}</h1>
+  <p>{filteredPenguins.length} pingouins</p>
+
+  <PlotFigure
+    options={{
+      grid: true,
+      marks: [
+        Plot.dot(filteredPenguins, {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+          fill: "steelblue",
+          r: 5,
+          fillOpacity: 0.7,
+        }),
+      ],
+      x: { label: "Longueur du bec (mm)" },
+      y: { label: "Profondeur du bec (mm)" },
+      title: `Graphique des ${species}`,
+    }}
+  />
+
+  <a href="/rendu-dynamique" style="display:block; margin-top:1em;">← Retour à la liste</a>
+</Layout>
+
+<style>
+  h1 {
+    font-family: sans-serif;
+  }
+  p {
+    font-style: italic;
+  }
+  a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
