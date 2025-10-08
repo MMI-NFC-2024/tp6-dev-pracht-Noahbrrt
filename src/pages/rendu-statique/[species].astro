@@ -4,7 +4,13 @@ import penguins from "../../assets/penguins.json";
 import PlotFigure from "../../components/PlotFigure.astro";
 import * as Plot from "@observablehq/plot";
 
-export const prerender = false;
+// 🧩 Génération statique des pages à la construction du site
+export async function getStaticPaths() {
+  const speciesList = [...new Set(penguins.map(p => p.species))];
+  return speciesList.map(species => ({
+    params: { species },
+  }));
+}
 
 const { species } = Astro.params;
 const filteredPenguins = penguins.filter(p => p.species === species);
@@ -17,7 +23,7 @@ const filteredPenguins = penguins.filter(p => p.species === species);
         🐧 Espèce : {species}
       </h1>
       <p class="text-gray-600">
-        {filteredPenguins.length} pingouins observés pour cette espèce.
+        {filteredPenguins.length} pingouins trouvés — page générée statiquement.
       </p>
     </section>
 
@@ -44,7 +50,7 @@ const filteredPenguins = penguins.filter(p => p.species === species);
 
     <div class="text-center mt-8">
       <a
-        href="/rendu-dynamique"
+        href="/rendu-statique"
         class="inline-block px-5 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"
       >
         ← Retour à la liste
@@ -59,6 +65,6 @@ const filteredPenguins = penguins.filter(p => p.species === species);
   }
 
   h1:hover {
-    color: #1d4ed8;
+    color: #1d4ed8; 
   }
 </style>

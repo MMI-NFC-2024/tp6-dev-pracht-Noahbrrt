@@ -3,23 +3,67 @@ import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Data Dashboard</title>
   </head>
-  <body>
- <nav style="background:#333; color:white; padding:10px;">
-      <a href="/" style="color:white; margin-right:15px; text-decoration:none;">Accueil</a>
-      <a href="/slider" style="color:white; margin-right:15px; text-decoration:none;">Page Slider</a>
-      <a href="/rendu-dynamique" style="color:white; text-decoration:none;">Rendu Dynamique</a>
+
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-6 py-3 gap-4">
+        <h1 class="text-lg font-semibold text-blue-600 tracking-tight">
+          🌐 Data Dashboard
+        </h1>
+
+        <div class="flex flex-wrap items-center gap-6 text-sm font-medium">
+          <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">
+            Accueil
+          </a>
+
+         <div class="relative group pb-2">
+  <span class="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors duration-200">
+    Penguins
+  </span>
+  <div
+    class="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-white border border-gray-200 shadow-lg rounded-md mt-2 py-2 w-48 z-50"
+  >
+    <a href="/slider" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Slider</a>
+    <a href="/rendu-dynamique" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+      Rendu Dynamique
+    </a>
+    <a href="/rendu-statique" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+      Rendu Statique
+    </a>
+  </div>
+</div>
+
+          <div class="relative group pb-2">
+  <span class="text-gray-700 cursor-pointer hover:text-blue-600 transition-colors duration-200">
+    Weather
+  </span>
+  <div
+    class="absolute opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-white border border-gray-200 shadow-lg rounded-md mt-2 py-2 w-48 z-50"
+  >
+    <a href="/weather" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">Accueil Weather</a>
+    <a href="/weather/rendu-dynamique" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+      Rendu Dynamique
+    </a>
+    <a href="/weather/rendu-statique" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+      Rendu Statique
+    </a>
+  </div>
+</div>
+        </div>
+      </div>
     </nav>
 
-
-    <slot />
+    <main class="p-6 md:p-10">
+      <slot />
+    </main>
   </body>
 </html>
 
@@ -31,7 +75,7 @@ import "../styles/global.css";
     height: 100%;
   }
 
-  nav a:hover {
-    text-decoration: underline;
+  .group:hover .group-hover\:block {
+    display: block;
   }
 </style>

@@ -12,7 +12,9 @@ const speciesList = [...new Set(penguins.map(p => p.species))];
         🐧 Liste des espèces de manchots
       </h1>
       <p class="text-gray-600">
-        Sélectionne une espèce ci-dessous pour afficher son graphique spécifique.
+        Pages générées statiquement à la construction du site.
+        <br />
+        Sélectionne une espèce ci-dessous pour afficher son graphique.
       </p>
     </section>
 
@@ -20,7 +22,7 @@ const speciesList = [...new Set(penguins.map(p => p.species))];
       {
         speciesList.map(species => (
           <a
-            href={`/rendu-dynamique/${species}`}
+            href={`/rendu-statique/${species}`}
             class="block bg-white border border-gray-200 shadow-sm rounded-xl p-6 text-center hover:shadow-md hover:-translate-y-1 transform transition-all duration-300"
           >
             <h2 class="text-xl font-medium text-gray-800 mb-2">{species}</h2>
@@ -38,6 +40,6 @@ const speciesList = [...new Set(penguins.map(p => p.species))];
   }
 
   h1:hover {
-    color: #1d4ed8; 
+    color: #1d4ed8;
   }
 </style>

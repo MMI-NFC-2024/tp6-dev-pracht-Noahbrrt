@@ -1,0 +1,58 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import weather from "../../../assets/weather.json";
+import PlotFigure from "../../../components/PlotFigure.astro";
+import * as Plot from "@observablehq/plot";
+
+export async function getStaticPaths() {
+  const locations = [...new Set(weather.map(w => w.location))];
+  return locations.map(location => ({ params: { location } }));
+}
+
+const { location } = Astro.params;
+const filtered = weather.filter(w => w.location === location);
+---
+
+<Layout>
+  <main class="max-w-5xl mx-auto py-10 px-6">
+    <h1 class="text-3xl font-semibold text-blue-600 mb-3 text-center">
+      🌤️ Météo — {location}
+    </h1>
+    <p class="text-gray-600 text-center mb-8">
+      {filtered.length} relevés — page générée statiquement.
+    </p>
+
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-md p-6">
+      <PlotFigure
+        options={{
+          grid: true,
+          marks: [
+            Plot.line(filtered, {
+              x: "date",
+              y: "temp_max",
+              stroke: "weather",
+              strokeWidth: 2
+            }),
+            Plot.line(filtered, {
+              x: "date",
+              y: "temp_min",
+              stroke: "steelblue",
+              strokeDasharray: "4 2",
+            })
+          ],
+          x: { label: "Date" },
+          y: { label: "Température (°C)" },
+          color: { legend: true },
+          title: `Évolution des températures à ${location}`
+        }}
+      />
+    </div>
+
+    <div class="text-center mt-8">
+      <a href="/weather/rendu-statique"
+        class="inline-block px-5 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200">
+        ← Retour à la liste
+      </a>
+    </div>
+  </main>
+</Layout>
